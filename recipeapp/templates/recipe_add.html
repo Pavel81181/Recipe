@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block title %}Добавить рецепт{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <h2>Добавить рецепт</h2>
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="form-group">
+                {{ form.name.label_tag }}
+                {{ form.name }}
+            </div>
+            <div class="form-group">
+                {{ form.ingredients.label_tag }}
+                {{ form.ingredients }}
+            </div>
+            <div class="form-group">
+                {{ form.instructions.label_tag }}
+                {{ form.instructions }}
+            </div>
+            <div class="form-group">
+                {{ form.time_prepare.label_tag }}
+                {{ form.time_prepare }}
+            </div>
+            <div class="form-group">
+                {{ form.image.label_tag }}
+                {{ form.image }}
+            </div>
+            <!-- Добавление поля для выбора категории -->
+            <div class="form-group">
+                {{ form.category.label_tag }}
+                {{ form.category }}
+            </div>
+            <button type="submit" class="btn btn-primary">Добавить</button>
+        </form>
+    </div>
+{% endblock %}

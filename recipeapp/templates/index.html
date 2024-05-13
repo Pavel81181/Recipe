@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block title %}Главная{% endblock %}
+
+{% block content %}
+    <div class="container">
+        {% for category in categories %}
+            <div class="card mb-3">
+                <h2 class="card-header">{{ category.name }}</h2>
+                <div class="card-body">
+                    <ul class="list-group">
+                        {% for recipe in relation %}
+                            {% if recipe.category == category %}
+                                <li class="list-group-item"><a href="{% url 'recipe_desc' recipe.recipe.id %}">{{ recipe.recipe.name }}</a></li>
+                            {% endif %}
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
