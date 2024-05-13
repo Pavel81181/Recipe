@@ -12,10 +12,12 @@
     {% if recipe.image %}
         <img src="{{ recipe.image.url }}" alt="{{ recipe.name }}" class="img-fluid">
     {% endif %}
+    <p>Автор рецепта: {{ recipe.author }} </p>
 
     {% if user.is_authenticated and user == recipe.author %}
     <a href="{% url 'recipe_edit' recipe.id %}" class="btn btn-primary mt-3">Редактировать</a>
 {% endif %}
+    
 
 
 {% endblock %}
