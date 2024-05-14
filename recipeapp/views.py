@@ -33,8 +33,6 @@ def recipe_add(request):
             file_name = f"{current_time}.{file_extension}"
             recipe.image.name = file_name
             recipe.save()
-
-            # Получение категории из формы и сохранение связи
             category_id = request.POST.get('category')
             category = Category.objects.get(pk=category_id)
             Relation.objects.create(recipe=recipe, category=category)
@@ -44,25 +42,20 @@ def recipe_add(request):
         form = RecipeForm()
     return render(request, 'recipe_add.html', {'form': form})
 
-def recipe_edit(request, recipe_id):
-    # Получение рецепта
+def recipe_edit(request, recipe_id):    
     recipe = get_object_or_404(Recipe, id=recipe_id)
 
     if request.method == 'POST':
         form = RecipeForm(request.POST, request.FILES, instance=recipe)
-        if form.is_valid():
-            # Сохранение рецепта
+        if form.is_valid():            
             form.save()
             return redirect('index')
-    else:
-        # Получение связей категорий для этого рецепта
-        relation = Relation.objects.filter(recipe=recipe)
-        # Получение первой связи категории, если она существует
+    else:       
+        relation = Relation.objects.filter(recipe=recipe)       
         if relation.exists():
             category = relation.first().category
         else:
-            category = None
-        # Передача категории в форму при создании экземпляра формы
+            category = None       
         form = RecipeForm(instance=recipe, initial={'category': category})
 
     return render(request, 'recipe_form.html', {'form': form, 'recipe': recipe})
