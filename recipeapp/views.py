@@ -10,7 +10,7 @@ from datetime import datetime
 
 def index(request):
     categories = Category.objects.all()
-    relation = Relation.objects.all().order_by('-id')[:5]
+    relation = Relation.objects.all().order_by('-id')
     return render(request, 'index.html', {'categories': categories, 'relation': relation})
 
 
